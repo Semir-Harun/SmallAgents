@@ -1,0 +1,111 @@
+{
+  "id": "eFkkWqS5KdrxZ43P",
+  "meta": {
+    "instanceId": "a2b23892dd6989fda7c1209b381f5850373a7d2b85609624d7c2b7a092671d44",
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Automate video creation with Veo3 and auto-post to Instagram, TikTok via Blotato - vide",
+  "tags": [],
+  "nodes": [
+    {
+      "id": "11a7c5b6-0db7-4d99-a1a0-e34e05c23ff5",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [340, 480],
+      "parameters": {
+        "width": 1200,
+        "height": 500,
+        "content": "# ✅ STEP 1 — Generate Script & Prompt with AI"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "2f3aec5c-4144-4e0c-b1c8-7f96dfe14370",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [340, 1020],
+      "parameters": {
+        "color": 3,
+        "width": 1200,
+        "height": 280,
+        "content": "# ✅ STEP 2 — Create Video Using Veo3\n\n"
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "45a5a9f4-fe6a-43a7-a032-c69750826209",
+      "name": "Assign Social Media IDs",
+      "type": "n8n-nodes-base.set",
+      "position": [420, 1680],
+      "parameters": {
+        "mode": "raw",
+        "options": {},
+        "jsonOutput": "{\n  \"instagram_id\": \"1111\",\n  \"youtube_id\": \"1111\",\n  \"threads_id\": \"1111\",\n  \"tiktok_id\": \"1111\",\n  \"facebook_id\": \"1111\",\n  \"facebook_page_id\": \"1111\",\n  \"twitter_id\": \"1111\",\n  \"linkedin_id\": \"1111\",\n  \"pinterest_id\": \"1111\",\n  \"pinterest_board_id\": \"1111\",\n  \"bluesky_id\": \"1111\"\n}\n"
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "6d125a85-b626-4981-8cfc-bcac4ea0ca89",
+      "name": "Get my video",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [520, 1440],
+      "parameters": {
+        "options": {},
+        "sheetName": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        }
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "51us92xkOlrvArhV",
+          "name": "Google Sheets account"
+        }
+      },
+      "typeVersion": 4.5
+    },
+    {
+      "id": "779818a1-97bd-4bf9-ba17-995c1439df6f",
+      "name": "Upload Video to Blotato",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [640, 1680],
+      "parameters": {
+        "url": "https://backend.blotato.com/v2/media",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "sendHeaders": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "url",
+              "value": "={{ $('Get my video').item.json['final_output'] }}"
+            }
+          ]
+        },
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "blotato-api-key",
+              "value": "YOUR_API_HERE"
+            }
+          ]
+        }
+      },
+      "typeVersion": 4.2
+    }
+  ],
+  "active": false,
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4ae2a231-a655-4a35-bc69-d4bb1af20b67",
+  "connections": {}
+}
