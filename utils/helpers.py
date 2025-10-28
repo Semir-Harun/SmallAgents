@@ -1,4 +1,5 @@
 """Small helper utilities for SmallAgents."""
+
 from typing import Any
 
 

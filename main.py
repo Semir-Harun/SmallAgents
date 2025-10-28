@@ -1,18 +1,24 @@
 """CLI entrypoint for running SmallAgents examples."""
+
 import argparse
+from typing import Any, Dict
+
 import yaml
+
 from agents.search_agent import SearchAgent
 
 
-def load_config(path: str = "config.yaml") -> dict:
+def load_config(path: str = "config.yaml") -> Dict[str, Any]:
+    """Load configuration from YAML file."""
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             return yaml.safe_load(f) or {}
     except FileNotFoundError:
         return {}
 
 
-def main():
+def main() -> None:
+    """Main CLI entry point."""
     parser = argparse.ArgumentParser(description="Run an example SmallAgent")
     parser.add_argument("--agent", choices=["search"], default="search")
     parser.add_argument("--query", default="example")

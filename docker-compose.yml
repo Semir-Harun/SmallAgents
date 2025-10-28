@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  smallagents:
+    build: .
+    container_name: smallagents
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+    command: python main.py --agent search --query "Docker agents"
+    
+  smallagents-dev:
+    build: .
+    container_name: smallagents-dev
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+    command: bash -c "pip install -r requirements-dev.txt && pytest -v"
+    
+  smallagents-interactive:
+    build: .
+    container_name: smallagents-interactive
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+    stdin_open: true
+    tty: true
+    command: bash

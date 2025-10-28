@@ -1,13 +1,10 @@
-"""Base agent interface for SmallAgents.
-
-This file contains a minimal BaseAgent class to be extended by concrete agents.
-"""
+"""Async base agent interface for SmallAgents."""
 
 from typing import Any, Dict, Optional
 
 
-class BaseAgent:
-    """Minimal agent interface.
+class AsyncBaseAgent:
+    """Async version of the minimal agent interface.
 
     Contract:
     - input: a dict-like `config` and arbitrary kwargs
@@ -19,10 +16,10 @@ class BaseAgent:
         """Initialize the agent with optional configuration."""
         self.config = config or {}
 
-    def run(self, *args: Any, **kwargs: Any) -> Dict[str, Any]:
-        """Run the agent. Must be implemented by subclasses."""
-        raise NotImplementedError("Agents must implement run()")
+    async def run(self, *args: Any, **kwargs: Any) -> Dict[str, Any]:
+        """Run the agent asynchronously. Must be implemented by subclasses."""
+        raise NotImplementedError("Async agents must implement run()")
 
     def info(self) -> Dict[str, Any]:
         """Return metadata about the agent."""
-        return {"name": self.__class__.__name__, "config": self.config}
+        return {"name": self.__class__.__name__, "config": self.config, "async": True}
