@@ -1,0 +1,5 @@
+# Example configuration for SmallAgents
+agents:
+  search:
+    max_results: 10
+    # Add API keys or other settings here
